@@ -1,0 +1,4 @@
+stats.txt
+.vercel
+node_modules
+*.log

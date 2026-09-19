@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rahul Fly - Bharat Jodo Endless Tapper</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+    <div id="game-wrapper">
+        <!-- Canvas Viewport -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Floating Tap Instruction -->
+        <div id="tap-hint" class="tap-hint">TAP / CLICK / SPACE TO FLY</div>
+
+        <!-- In-Game HUD Overlay -->
+        <div id="hud">
+            <div class="hud-group">
+                <div class="hud-card">
+                    <span>🏆</span>
+                    <span id="hud-score" class="hud-score-val">0</span>
+                </div>
+                <div class="hud-card">
+                    <span>📍</span>
+                    <span id="hud-km" class="hud-km-val">0 KM</span>
+                </div>
+                <div id="hud-lives" style="font-size: 14px; margin-top: 2px;">
+                    ❤️ ❤️ ❤️
+                </div>
+            </div>
+
+            <div class="hud-controls">
+                <button id="btn-audio" class="icon-btn" title="Toggle Sound" aria-label="Toggle Sound">
+                    <span id="audio-icon">🔊</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Active Power-up Meter -->
+        <div id="active-powerup-bar">
+            <div id="powerup-name" class="powerup-name">POWER UP!</div>
+            <div class="powerup-meter-bg">
+                <div id="powerup-meter-fill" class="powerup-meter-fill"></div>
+            </div>
+        </div>
+
+        <!-- START SCREEN OVERLAY -->
+        <div id="start-screen" class="ui-screen">
+            <div class="title-container">
+                <h1 class="game-title">RAHUL FLY</h1>
+                <div class="tricolor-bar"></div>
+                <p class="sub-title">BHARAT JODO ENDLESS TAPPER</p>
+            </div>
+
+            <div class="avatar-preview">
+                <span style="font-size: 48px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">🦸‍♂️</span>
+            </div>
+
+            <div class="mode-selector">
+                <div class="mode-pill active" data-mode="yatra">Yatra Mode (3 Lives)</div>
+                <div class="mode-pill" data-mode="classic">Classic (1 Hit KO)</div>
+            </div>
+
+            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">
+                BEST RECORD: <span id="start-highscore" style="color: #FFD700; font-weight: 700;">0</span> PTS
+            </div>
+            <div style="font-size: 11px; color: #38BDF8; margin-bottom: 12px; font-weight: 600; text-shadow: 0 0 8px rgba(56,189,248,0.5);">
+                🎵 INSTA VIRAL REEL BEAT & MEMES ACTIVE!
+            </div>
+
+            <button id="btn-start" class="arcade-btn">
+                <span>▶</span> START FLYING
+            </button>
+
+            <button id="btn-guide" class="arcade-btn btn-secondary">
+                <span>📜</span> HOW TO PLAY
+            </button>
+        </div>
+
+        <!-- GAME OVER SCREEN OVERLAY -->
+        <div id="gameover-screen" class="ui-screen hidden">
+            <div class="title-container">
+                <h2 class="game-title" style="color: #E63946;">KHATAM! TATA!</h2>
+                <div style="color: #FCA5A5; font-weight: 700; font-size: 14px; margin-top: 4px;">"बाय बाय! Goodbye, गया!"</div>
+                <div class="tricolor-bar"></div>
+            </div>
+
+            <div class="score-card">
+                <div class="score-row highlight">
+                    <span>FINAL SCORE</span>
+                    <span id="final-score">0</span>
+                </div>
+                <div class="score-row">
+                    <span>DISTANCE COVERED</span>
+                    <span id="final-km" style="color: #38bdf8; font-weight: 700;">0 KM</span>
+                </div>
+                <div class="score-row">
+                    <span>BEST RECORD</span>
+                    <span id="final-highscore" style="color: #FFD700; font-weight: 700;">0</span>
+                </div>
+                <div id="new-high-badge" style="display: none; color: #FFD700; font-size: 11px; font-weight: 700;">
+                    🎉 NEW HIGH SCORE! 🎉
+                </div>
+                <div class="badge-pill" id="player-rank">
+                    Trainee Yatri 🚶
+                </div>
+            </div>
+
+            <button id="btn-restart" class="arcade-btn">
+                <span>🔄</span> FLY AGAIN
+            </button>
+
+            <button id="btn-share" class="arcade-btn btn-secondary">
+                <span>📢</span> SHARE SCORE
+            </button>
+        </div>
+
+        <!-- PAUSE SCREEN OVERLAY -->
+        <div id="pause-screen" class="ui-screen hidden">
+            <h2 class="game-title" style="margin-bottom: 16px;">GAME PAUSED</h2>
+            <button id="btn-resume" class="arcade-btn">
+                <span>▶</span> RESUME
+            </button>
+        </div>
+
+        <!-- HOW TO PLAY MODAL -->
+        <div id="instructions-modal" class="ui-screen hidden">
+            <h3 class="game-title" style="font-size: 18px; margin-bottom: 10px;">HOW TO PLAY</h3>
+            <ul class="guide-list">
+                <li><span>👆</span> <strong>Tap / Space / Click</strong> to fly upwards.</li>
+                <li><span>🛑</span> <strong>Dodge</strong> 56-inch obstacle pillars & cutouts.</li>
+                <li><span>📜</span> <strong>Samvidhan</strong>: Golden shield forcefield!</li>
+                <li><span>🥔</span> <strong>Golden Aloo</strong>: 5X Score Multiplier!</li>
+                <li><span>💖</span> <strong>Mohabbat Ki Dukaan</strong>: +1 Life recovery!</li>
+                <li><span>✋</span> <strong>Vote Tokens</strong>: Extra points & speed boost!</li>
+            </ul>
+            <button id="btn-close-guide" class="arcade-btn btn-secondary" style="margin-top: 10px;">
+                GOT IT!
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="audio.js"></script>
+    <script src="assets.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

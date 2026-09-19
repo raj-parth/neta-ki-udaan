@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Netaji Fly: Kursi Ki Jung - Endless Arcade Flying Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Main Canvas Viewport -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Tap Prompt Instruction -->
+        <div id="tap-prompt" class="tap-prompt">TAP / CLICK / SPACE TO FLY</div>
+
+        <!-- In-Game HUD -->
+        <div id="hud">
+            <div class="hud-pill">
+                <span style="font-size: 14px;">🏆</span>
+                <span id="hud-score" class="hud-score">0</span>
+                <span id="hud-best" class="hud-best">BEST 0</span>
+            </div>
+            <div class="hud-btn-group">
+                <button id="btn-mute" class="hud-btn" title="Toggle Sound" aria-label="Toggle Sound">
+                    <span id="audio-icon">🔊</span>
+                </button>
+                <button id="btn-pause" class="hud-btn" title="Pause Game" aria-label="Pause Game">
+                    <span>⏸</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- START SCREEN OVERLAY -->
+        <div id="screen-start" class="screen-overlay">
+            <div class="logo-box">
+                <h1 class="title-main">NETAJI FLY</h1>
+                <p class="title-sub">KURSI KI JUNG</p>
+                <div class="title-line"></div>
+            </div>
+
+            <!-- Live Animated Fictional Character Preview -->
+            <div class="char-preview-box"></div>
+
+            <div style="font-size: 13px; color: #94A3B8; margin-bottom: 14px; font-weight: 700;">
+                BEST RECORD: <span id="start-best-score" style="color: #FBBF24; font-family: 'Press Start 2P', cursive; font-size: 12px;">0</span>
+            </div>
+
+            <button id="btn-play" class="btn-arcade">
+                <span>▶</span> PLAY NOW
+            </button>
+
+            <p style="font-size: 11px; color: #64748B; margin-top: 14px; font-weight: 600;">
+                TAP / CLICK / SPACE TO FLY
+            </p>
+        </div>
+
+        <!-- GAME OVER SCREEN OVERLAY -->
+        <div id="screen-gameover" class="screen-overlay hidden">
+            <div class="logo-box" style="margin-bottom: 12px;">
+                <h2 class="title-main" style="color: #EF4444; font-size: 24px;">GAME OVER</h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="results-card">
+                <div class="results-row big">
+                    <span>SCORE</span>
+                    <span id="final-score">0</span>
+                </div>
+                <div class="results-row">
+                    <span>BEST RECORD</span>
+                    <span id="final-best" style="color: #FBBF24; font-weight: 800; font-size: 15px;">0</span>
+                </div>
+                <div id="record-badge" class="record-badge" style="display: none;">
+                    🎉 NEW BEST RECORD! 🎉
+                </div>
+            </div>
+
+            <button id="btn-restart" class="btn-arcade">
+                <span>🔄</span> RESTART
+            </button>
+
+            <button id="btn-home" class="btn-arcade btn-sub">
+                <span>🏠</span> HOME
+            </button>
+        </div>
+
+        <!-- PAUSE SCREEN OVERLAY -->
+        <div id="screen-pause" class="screen-overlay hidden">
+            <div class="logo-box">
+                <h2 class="title-main" style="font-size: 22px;">PAUSED</h2>
+                <div class="title-line"></div>
+            </div>
+
+            <button id="btn-resume" class="btn-arcade">
+                <span>▶</span> RESUME
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="audio.js"></script>
+    <script src="character.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
