@@ -2,3 +2,7 @@ stats.txt
 .vercel
 node_modules
 *.log
+assets/*.opus
+assets/*_raw.jpg
+temp_*
+

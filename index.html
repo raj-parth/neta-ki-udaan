@@ -92,11 +92,11 @@
 
   /* Character Selector */
   .char-select-row{
-    display:flex; gap:10px; margin:10px 0 14px; justify-content:center;
+    display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 10px; justify-content:center; max-width:360px;
   }
   .char-card{
     background:rgba(255,255,255,0.08); border:2px solid rgba(255,201,60,0.3);
-    border-radius:16px; padding:7px 10px; cursor:pointer; min-width:76px;
+    border-radius:14px; padding:6px 8px; cursor:pointer; min-width:62px;
     display:flex; flex-direction:column; align-items:center;
     transition:all .15s ease;
   }
@@ -104,17 +104,17 @@
     background:rgba(255,122,48,0.25);
     border-color:var(--gold);
     box-shadow:0 0 15px var(--gold-glow);
-    transform:scale(1.06);
+    transform:scale(1.05);
   }
-  .char-card span{ font-size:11px; font-weight:700; color:var(--cream); margin-top:4px; white-space:nowrap; }
+  .char-card span{ font-size:10px; font-weight:700; color:var(--cream); margin-top:3px; white-space:nowrap; }
 
-  /* Music Selector Pill */
+  /* Music Selector Pill & Theme Pill */
   .music-pill{
     display:inline-flex; align-items:center; gap:8px;
     background:rgba(11,79,92,.65);
     border:2px solid rgba(255,201,60,.55);
-    color:var(--cream); font-weight:600; font-size:13px;
-    padding:6px 16px; border-radius:999px; margin:4px 0 12px;
+    color:var(--cream); font-weight:600; font-size:12px;
+    padding:5px 14px; border-radius:999px; margin:3px 0 8px;
     backdrop-filter:blur(3px); cursor:pointer;
     transition:transform .1s;
   }
@@ -125,11 +125,18 @@
     display:inline-flex; align-items:center; gap:8px;
     background:rgba(11,79,92,.55);
     border:2px solid rgba(255,201,60,.55);
-    color:var(--cream); font-weight:600; font-size:14px;
-    padding:6px 16px; border-radius:999px; margin:4px 0 12px;
-    backdrop-filter:blur(2px);
+    color:var(--cream); font-weight:600; font-size:13px;
+    padding:5px 14px; border-radius:999px; margin:3px 0 10px;
+    backdrop-filter:blur(2px); cursor:pointer;
   }
   .best-pill b{ color:var(--gold); font-weight:700; }
+
+  .btn-whatsapp{
+    background:linear-gradient(180deg, #25D366 0%, #128C7E 100%) !important;
+    box-shadow:0 6px 0 #075E54, 0 10px 18px rgba(0,0,0,.3) !important;
+    font-size:16px !important; padding:10px 22px !important; margin-top:8px !important;
+  }
+  .btn-whatsapp:active{ transform:translateY(4px); box-shadow:0 2px 0 #075E54 !important; }
 
   .btn{
     font-family:'Baloo 2',sans-serif; font-weight:700; font-size:22px;
@@ -291,6 +298,7 @@
         <div class="lives-row" id="livesRow"></div>
       </div>
       <div class="hud-controls">
+        <div class="icon-btn" id="themeBtn" title="Change Background Theme" onclick="nextTheme()">🌆</div>
         <div class="icon-btn" id="musicBtn" title="Change Meme BGM">🎵</div>
         <div class="icon-btn" id="soundBtn" title="Toggle Sound">🔊</div>
         <div class="icon-btn" id="pauseBtn" title="Pause Game">⏸</div>
@@ -307,35 +315,46 @@
     <div class="overlay" id="startScreen">
       <div class="logo-wrap">
         <div class="logo">NETA KI<br>UDAAN
-          <small>🔥 MODI JI INSTA MEME EDITION 🔥</small>
+          <small>🔥 ALL-STAR NETAS MEME EDITION 🔥</small>
         </div>
       </div>
 
       <!-- Character selection -->
       <div class="char-select-row">
         <div class="char-card active" id="charModi" onclick="selectChar('modi')">
-          <img src="assets/modi_face.png" width="46" height="46" style="border-radius:50%; border:2px solid #FF7A30; object-fit:cover; display:block;" alt="Modi Ji">
+          <img src="assets/modi_face.png" width="42" height="42" style="border-radius:50%; border:2px solid #FF7A30; object-fit:cover; display:block;" alt="Modi Ji">
           <span>Modi Ji</span>
         </div>
         <div class="char-card" id="charRahul" onclick="selectChar('rahul')">
-          <img src="assets/rahul_face.png" width="46" height="46" style="border-radius:50%; border:2px solid #38BDF8; object-fit:cover; display:block;" alt="Rahul Gandhi">
+          <img src="assets/rahul_face.png" width="42" height="42" style="border-radius:50%; border:2px solid #38BDF8; object-fit:cover; display:block;" alt="Rahul Gandhi">
           <span>Rahul Gandhi</span>
         </div>
         <div class="char-card" id="charMamata" onclick="selectChar('mamata')">
-          <img src="assets/mamata_face.png" width="46" height="46" style="border-radius:50%; border:2px solid #22C55E; object-fit:cover; display:block;" alt="Mamata Didi">
+          <img src="assets/mamata_face.png" width="42" height="42" style="border-radius:50%; border:2px solid #22C55E; object-fit:cover; display:block;" alt="Mamata Didi">
           <span>Mamata Didi</span>
+        </div>
+        <div class="char-card" id="charKejriwal" onclick="selectChar('kejriwal')">
+          <img src="assets/kejriwal_face.png" width="42" height="42" style="border-radius:50%; border:2px solid #0EA5E9; object-fit:cover; display:block;" alt="Kejriwal">
+          <span>Kejriwal</span>
+        </div>
+        <div class="char-card" id="charYogi" onclick="selectChar('yogi')">
+          <img src="assets/yogi_face.png" width="42" height="42" style="border-radius:50%; border:2px solid #F59E0B; object-fit:cover; display:block;" alt="Yogi Ji">
+          <span>Yogi Ji</span>
         </div>
       </div>
 
-      <!-- Music selector -->
+      <!-- Theme selector & Music selector -->
+      <div class="music-pill" id="startThemePill" onclick="nextTheme()">
+        🌆 THEME: <b id="currentThemeName">🇮🇳 INDIA GATE</b>
+      </div>
       <div class="music-pill" id="startMusicPill">
         🎵 BGM: <b id="currentBgmName">🚀 UDTA HI PHIRU (MODI JI)</b>
       </div>
 
-      <div class="best-pill">🏆 BEST RECORD&nbsp;<b id="startBest">0</b></div>
+      <div class="best-pill" onclick="openLeaderboard()">🏆 HIGH SCORES &nbsp;<b id="startBest">0</b></div>
       <button class="btn" id="playBtn">▶ MITRON, PLAY!</button>
 
-      <div style="color:var(--cream); font-size:11px; opacity:.85; margin-top:12px; font-weight:600; letter-spacing:1px;">
+      <div style="color:var(--cream); font-size:11px; opacity:.85; margin-top:10px; font-weight:600; letter-spacing:1px;">
         TAP · CLICK · SPACE TO FLY
       </div>
     </div>
@@ -360,10 +379,23 @@
         <div class="stat-card"><span>SCORE</span><b id="finalScore">0</b></div>
         <div class="stat-card"><span>BEST</span><b id="finalBest">0</b></div>
       </div>
-      <div class="btn-row">
+      <div class="btn-row" style="flex-direction:column; align-items:center; gap:8px;">
         <button class="btn" id="restartBtn">↻ FLY AGAIN</button>
+        <button class="btn btn-whatsapp" id="whatsappBtn" onclick="shareOnWhatsApp()">📲 SHARE ON WHATSAPP</button>
       </div>
-      <button class="btn secondary" id="homeBtn">🏠 HOME</button>
+      <div class="btn-row">
+        <button class="btn secondary" onclick="openLeaderboard()">🏆 LEADERBOARD</button>
+        <button class="btn secondary" id="homeBtn">🏠 HOME</button>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD MODAL -->
+    <div class="overlay" id="leaderboardModal" style="display:none; z-index:35;">
+      <div class="pause-card" style="max-width:320px; width:92%; padding:18px 20px; text-align:center;">
+        <div class="go-title" style="font-size:26px; margin-bottom:12px;">🏆 TOP RECORDS</div>
+        <div id="leaderboardList" style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px; max-height:220px; overflow-y:auto;"></div>
+        <button class="btn secondary" onclick="closeLeaderboard()" style="margin-top:0; width:100%;">✕ CLOSE</button>
+      </div>
     </div>
 
     <div class="credit">Modi Ji Instagram Meme Flying Arcade</div>
@@ -451,13 +483,21 @@ const Audio_ = (function(){
     sigmaBgm: new Audio('assets/sigma_bgm.webm'),
     modiSong: new Audio('assets/modi_udta_hi_firu.webm'),
     mamataSong: new Audio('assets/mamata_humba.webm'),
-    mamataVoice: new Audio('assets/mamata_voice.webm')
+    mamataVoice: new Audio('assets/mamata_voice.webm'),
+    kejriwalVoice: new Audio('assets/kejriwal_voice.webm'),
+    kejriwalBgm: new Audio('assets/kejriwal_bgm.webm'),
+    yogiVoice: new Audio('assets/yogi_voice.webm'),
+    yogiBgm: new Audio('assets/yogi_bgm.webm')
   };
 
   clips.modiSong.loop = true;
   clips.modiSong.volume = 0.50;
   clips.mamataSong.loop = true;
   clips.mamataSong.volume = 0.50;
+  clips.kejriwalBgm.loop = true;
+  clips.kejriwalBgm.volume = 0.50;
+  clips.yogiBgm.loop = true;
+  clips.yogiBgm.volume = 0.50;
   clips.sigmaBgm.loop = true;
   clips.sigmaBgm.volume = 0.40;
 
@@ -476,15 +516,11 @@ const Audio_ = (function(){
   // Restore BGM volume cleanly
   function restoreBgmVolume(){
     if(duckTimer){ clearTimeout(duckTimer); duckTimer = null; }
-    if(clips.modiSong && soundOn){
-      clips.modiSong.volume = 0.50;
-    }
-    if(clips.mamataSong && soundOn){
-      clips.mamataSong.volume = 0.50;
-    }
-    if(clips.sigmaBgm && soundOn){
-      clips.sigmaBgm.volume = 0.40;
-    }
+    if(clips.modiSong && soundOn) clips.modiSong.volume = 0.50;
+    if(clips.mamataSong && soundOn) clips.mamataSong.volume = 0.50;
+    if(clips.kejriwalBgm && soundOn) clips.kejriwalBgm.volume = 0.50;
+    if(clips.yogiBgm && soundOn) clips.yogiBgm.volume = 0.50;
+    if(clips.sigmaBgm && soundOn) clips.sigmaBgm.volume = 0.40;
   }
 
   // Duck BGM during voice dialogue so voice is loud & clear
@@ -496,6 +532,14 @@ const Audio_ = (function(){
     }
     if(clips.mamataSong && !clips.mamataSong.paused){
       clips.mamataSong.volume = 0.15;
+      duckTimer = setTimeout(restoreBgmVolume, durationMs);
+    }
+    if(clips.kejriwalBgm && !clips.kejriwalBgm.paused){
+      clips.kejriwalBgm.volume = 0.15;
+      duckTimer = setTimeout(restoreBgmVolume, durationMs);
+    }
+    if(clips.yogiBgm && !clips.yogiBgm.paused){
+      clips.yogiBgm.volume = 0.15;
       duckTimer = setTimeout(restoreBgmVolume, durationMs);
     }
     if(clips.sigmaBgm && !clips.sigmaBgm.paused){
@@ -513,7 +557,7 @@ const Audio_ = (function(){
       } catch(e){}
       currentVoiceAudio = null;
     }
-    ['mitron', 'bhaiyoBehno', 'wahModiJi', 'khatam', 'mazaAaya', 'moyeMoye', 'mamataVoice'].forEach(k => {
+    ['mitron', 'bhaiyoBehno', 'wahModiJi', 'khatam', 'mazaAaya', 'moyeMoye', 'mamataVoice', 'kejriwalVoice', 'yogiVoice'].forEach(k => {
       try {
         if(clips[k] && !clips[k].paused){
           clips[k].pause();
@@ -632,6 +676,24 @@ const Audio_ = (function(){
       } catch(e){}
       return;
     }
+    if(currentBgmMode === 'kejriwal_song'){
+      try {
+        clips.kejriwalBgm.currentTime = 0;
+        clips.kejriwalBgm.volume = 0.50;
+        clips.kejriwalBgm.loop = true;
+        clips.kejriwalBgm.play().catch(()=>{});
+      } catch(e){}
+      return;
+    }
+    if(currentBgmMode === 'yogi_song'){
+      try {
+        clips.yogiBgm.currentTime = 0;
+        clips.yogiBgm.volume = 0.50;
+        clips.yogiBgm.loop = true;
+        clips.yogiBgm.play().catch(()=>{});
+      } catch(e){}
+      return;
+    }
     if(currentBgmMode === 'real_sigma'){
       try {
         clips.sigmaBgm.currentTime = 0;
@@ -722,6 +784,14 @@ const Audio_ = (function(){
       clips.mamataSong.currentTime = 0;
     } catch(e){}
     try {
+      clips.kejriwalBgm.pause();
+      clips.kejriwalBgm.currentTime = 0;
+    } catch(e){}
+    try {
+      clips.yogiBgm.pause();
+      clips.yogiBgm.currentTime = 0;
+    } catch(e){}
+    try {
       clips.sigmaBgm.pause();
       clips.sigmaBgm.currentTime = 0;
     } catch(e){}
@@ -747,7 +817,7 @@ const Audio_ = (function(){
   }
 
   function nextBgm(){
-    const modes = ['modi_song', 'mamata_song', 'real_sigma', 'moye_real', 'phonk_synth', 'dhol'];
+    const modes = ['modi_song', 'mamata_song', 'kejriwal_song', 'yogi_song', 'real_sigma', 'moye_real', 'phonk_synth', 'dhol'];
     const idx = (modes.indexOf(currentBgmMode) + 1) % modes.length;
     currentBgmMode = modes[idx];
     if(soundOn) startMusic();
@@ -757,6 +827,8 @@ const Audio_ = (function(){
   function getBgmName(){
     if(currentBgmMode === 'modi_song') return '🚀 UDTA HI PHIRU (MODI JI)';
     if(currentBgmMode === 'mamata_song') return '💃 HUMBA HUMBA (MAMATA DIDI)';
+    if(currentBgmMode === 'kejriwal_song') return '🧣 TOH KAR NA (KEJRIWAL)';
+    if(currentBgmMode === 'yogi_song') return '🚜 BULLDOZER ATTITUDE (YOGI JI)';
     if(currentBgmMode === 'real_sigma') return '🔥 REAL INSTA PHONK (SIGMA)';
     if(currentBgmMode === 'moye_real') return '😭 REAL MOYE MOYE';
     if(currentBgmMode === 'phonk_synth') return '⚡ RETRO SYNTH PHONK';
@@ -828,20 +900,121 @@ imgRahul.src = 'assets/rahul_face.png';
 const imgMamata = new Image();
 imgMamata.src = 'assets/mamata_face.png';
 
+const imgKejriwal = new Image();
+imgKejriwal.src = 'assets/kejriwal_face.png';
+
+const imgYogi = new Image();
+imgYogi.src = 'assets/yogi_face.png';
+
+/* ---------- 5 Background Themes System ---------- */
+const THEMES = [
+  { id: 'india_gate', name: '🇮🇳 INDIA GATE' },
+  { id: 'sansad', name: '🏛️ SANSAD BHAWAN' },
+  { id: 'rashtrapati', name: '🏰 RASHTRAPATI BHAVAN' },
+  { id: 'railway', name: '🚂 RAILWAY STATION' },
+  { id: 'rajya_sabha', name: '🏛️ RAJYA SABHA' }
+];
+let currentTheme = localStorage.getItem('neta_theme') || 'india_gate';
+
+window.nextTheme = function(){
+  const idx = THEMES.findIndex(t => t.id === currentTheme);
+  const nextIdx = (idx + 1) % THEMES.length;
+  setTheme(THEMES[nextIdx].id);
+  Audio_.click();
+};
+
+function setTheme(thId){
+  currentTheme = thId;
+  try { localStorage.setItem('neta_theme', thId); } catch(e){}
+  const thObj = THEMES.find(t => t.id === thId) || THEMES[0];
+  const elTh = document.getElementById('currentThemeName');
+  if(elTh) elTh.textContent = thObj.name;
+}
+setTimeout(()=> setTheme(currentTheme), 50);
+
+/* ---------- High Score Leaderboard System ---------- */
+function getLeaderboard(){
+  try { return JSON.parse(localStorage.getItem('neta_leaderboard') || '[]'); }
+  catch(e){ return []; }
+}
+
+function recordScoreToLeaderboard(sc, ch, th){
+  if(sc <= 0) return;
+  try {
+    let list = getLeaderboard();
+    const charNames = { modi: 'Modi Ji', rahul: 'Rahul Gandhi', mamata: 'Mamata Didi', kejriwal: 'Kejriwal', yogi: 'Yogi Ji' };
+    list.push({
+      score: sc,
+      character: charNames[ch] || ch,
+      charKey: ch,
+      theme: th,
+      date: new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short' })
+    });
+    list.sort((a,b) => b.score - a.score);
+    list = list.slice(0, 5);
+    localStorage.setItem('neta_leaderboard', JSON.stringify(list));
+  } catch(e){}
+}
+
+window.openLeaderboard = function(){
+  const modal = document.getElementById('leaderboardModal');
+  const listEl = document.getElementById('leaderboardList');
+  if(!modal || !listEl) return;
+  const list = getLeaderboard();
+  if(list.length === 0){
+    listEl.innerHTML = '<div style="color:var(--cream); opacity:0.8; font-size:13px; padding:12px 0;">अभी कोई रिकॉर्ड नहीं है!<br>गेम खेलें और नया रिकॉर्ड बनाएं! 🚀</div>';
+  } else {
+    const medals = ['🥇', '🥈', '🥉', '🎖️', '🎖️'];
+    listEl.innerHTML = list.map((item, i) => `
+      <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.09); border:1px solid rgba(255,201,60,0.25); border-radius:10px; padding:8px 12px;">
+        <div style="display:flex; align-items:center; gap:8px; text-align:left;">
+          <span style="font-size:20px;">${medals[i] || '🎖️'}</span>
+          <div>
+            <div style="font-weight:700; color:var(--cream); font-size:13px;">${item.character}</div>
+            <div style="font-size:10px; color:rgba(255,243,226,0.6);">${item.date}</div>
+          </div>
+        </div>
+        <div style="font-family:'Baloo 2',sans-serif; font-weight:800; font-size:20px; color:var(--gold);">${item.score} pts</div>
+      </div>
+    `).join('');
+  }
+  modal.style.display = 'flex';
+};
+
+window.closeLeaderboard = function(){
+  const modal = document.getElementById('leaderboardModal');
+  if(modal) modal.style.display = 'none';
+};
+
+/* ---------- WhatsApp Sharing ---------- */
+window.shareOnWhatsApp = function(){
+  const charNames = { modi: 'मोदी जी', rahul: 'राहुल गांधी', mamata: 'ममता दीदी', kejriwal: 'केजरीवाल जी', yogi: 'योगी जी' };
+  const name = charNames[chosenCharacter] || 'नेता जी';
+  const text = `🚀 मैंने नेता की उड़ान (Neta Ki Udaan) गेम में ${name} के साथ ${score} पॉइंट्स का रिकॉर्ड बनाया! 🔥\n\nक्या तुम मेरा रिकॉर्ड तोड़ सकते हो? अभी खेलो:\nhttps://neta-ki-udaan.vercel.app`;
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+};
+
 window.selectChar = function(charType){
   chosenCharacter = charType;
-  const cModi = document.getElementById('charModi');
-  const cRahul = document.getElementById('charRahul');
-  const cMamata = document.getElementById('charMamata');
-  if(cModi) cModi.classList.toggle('active', charType === 'modi');
-  if(cRahul) cRahul.classList.toggle('active', charType === 'rahul');
-  if(cMamata) cMamata.classList.toggle('active', charType === 'mamata');
+  const cards = ['charModi', 'charRahul', 'charMamata', 'charKejriwal', 'charYogi'];
+  cards.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('active', id.toLowerCase().includes(charType));
+  });
   Audio_.click();
 
   if(charType === 'modi'){
     Audio_.setBgmMode('modi_song');
   } else if(charType === 'mamata'){
+    Audio_.playClip('mamataVoice');
     Audio_.setBgmMode('mamata_song');
+  } else if(charType === 'kejriwal'){
+    Audio_.playClip('kejriwalVoice');
+    Audio_.setBgmMode('kejriwal_song');
+  } else if(charType === 'yogi'){
+    Audio_.playClip('yogiVoice');
+    Audio_.setBgmMode('yogi_song');
   } else {
     Audio_.playClip('mazaAaya');
     Audio_.setBgmMode('real_sigma');
@@ -1168,8 +1341,19 @@ function gameOver(){
   if(isNew){
     bestScore = score;
     saveBest(bestScore);
-    document.getElementById('gameOverMeme').textContent = `"वाह मोदी जी वाह! नया रिकॉर्ड!"`;
-    scheduleVoice('wahModiJi', null, 250);
+    if(chosenCharacter === 'yogi'){
+      document.getElementById('gameOverMeme').textContent = `"बुलडोज़र रिकॉर्ड! गाड़ी नहीं पलटेगी!"`;
+      scheduleVoice('yogiVoice', null, 250);
+    } else if(chosenCharacter === 'kejriwal'){
+      document.getElementById('gameOverMeme').textContent = `"शानदार रिकॉर्ड! आम आदमी की जीत!"`;
+      scheduleVoice('kejriwalVoice', null, 250);
+    } else if(chosenCharacter === 'mamata'){
+      document.getElementById('gameOverMeme').textContent = `"खेला होबे! नया रिकॉर्ड!"`;
+      scheduleVoice('mamataVoice', null, 250);
+    } else {
+      document.getElementById('gameOverMeme').textContent = `"वाह मोदी जी वाह! नया रिकॉर्ड!"`;
+      scheduleVoice('wahModiJi', null, 250);
+    }
   } else {
     if(chosenCharacter === 'rahul'){
       document.getElementById('gameOverMeme').textContent = `"खत्म! टाटा! बाय बाय! गुडबाय!"`;
@@ -1177,6 +1361,12 @@ function gameOver(){
     } else if(chosenCharacter === 'mamata'){
       document.getElementById('gameOverMeme').textContent = `"HUMBA HUMBA! खेला होबे!"`;
       scheduleVoice('mamataVoice', null, 250);
+    } else if(chosenCharacter === 'kejriwal'){
+      document.getElementById('gameOverMeme').textContent = `"ये सब मिले हुए हैं जी! तो कर ना!"`;
+      scheduleVoice('kejriwalVoice', null, 250);
+    } else if(chosenCharacter === 'yogi'){
+      document.getElementById('gameOverMeme').textContent = `"गाड़ी कभी भी पलट सकती है!"`;
+      scheduleVoice('yogiVoice', null, 250);
     } else {
       const isMoye = Math.random() < 0.65;
       if(isMoye){
@@ -1188,6 +1378,9 @@ function gameOver(){
       }
     }
   }
+
+  // Save to Top Leaderboard
+  recordScoreToLeaderboard(score, chosenCharacter, currentTheme);
 
   el.finalScore.textContent = score;
   el.finalBest.textContent = bestScore;
@@ -1297,67 +1490,303 @@ const kites = Array.from({length:3}, (_,i)=>({
   x: Math.random()*BASE_W, y: 220+Math.random()*220, s:0.6+Math.random()*0.4, sp: 24+Math.random()*12, hue: i
 }));
 
-function drawBackground(dt){
-  // Dynamic Sky Gradient (Day to Sunset to Night based on score)
+/* ---------- 5 Iconic Indian Background Themes ---------- */
+function drawIndiaGateTheme(dt){
   const cycle = (Math.sin(score * 0.06) + 1) / 2;
   const g = ctx.createLinearGradient(0,0,0,H);
   if(cycle < 0.5){
-    g.addColorStop(0, '#FFD9A0');
-    g.addColorStop(0.5, '#FF9E5E');
-    g.addColorStop(1, '#5B3A73');
+    g.addColorStop(0, '#FFD9A0'); g.addColorStop(0.5, '#FF9E5E'); g.addColorStop(1, '#5B3A73');
   } else {
-    g.addColorStop(0, '#0F172A');
-    g.addColorStop(0.5, '#1E293B');
-    g.addColorStop(1, '#7C2D12');
+    g.addColorStop(0, '#0F172A'); g.addColorStop(0.5, '#1E293B'); g.addColorStop(1, '#7C2D12');
   }
-  ctx.fillStyle = g;
-  ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
 
   // Glowing Sun / Moon
   const sunX = scaleX(320), sunY = scaleY(100);
   const rg = ctx.createRadialGradient(sunX,sunY,0, sunX,sunY, scaleX(140));
   rg.addColorStop(0, cycle < 0.5 ? 'rgba(255,240,200,0.6)' : 'rgba(241,245,249,0.5)');
   rg.addColorStop(1, 'rgba(255,240,200,0)');
-  ctx.fillStyle = rg;
-  ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = rg; ctx.fillRect(0,0,W,H);
 
-  // Parallax Monuments (Sansad Bhavan & India Gate silhouettes)
-  if(state === STATE.PLAYING) bgOffset1 -= dt*16;
+  // India Gate Parallax Monument
   ctx.fillStyle = 'rgba(91,58,115,0.45)';
-  for(let i=0; i<4; i++){
-    const mx = ((i * 140 + bgOffset1) % (BASE_W + 140)) - 70;
-    const my = H - scaleY(110);
-    ctx.fillRect(scaleX(mx), my, scaleX(90), scaleY(60));
-    // Dome atop
+  for(let i=0; i<3; i++){
+    const mx = ((i * 180 + bgOffset1) % (BASE_W + 180)) - 90;
+    const my = H - scaleY(135);
+    const gw = scaleX(80), gh = scaleY(75);
+    // Base & Pillars
+    ctx.fillRect(scaleX(mx), my, gw, gh);
+    // Top Cornice
+    ctx.fillRect(scaleX(mx - 6), my - scaleY(10), gw + scaleX(12), scaleY(10));
+    ctx.fillRect(scaleX(mx + 8), my - scaleY(18), gw - scaleX(16), scaleY(8));
+    // Center Archway Cutout
+    ctx.save();
+    ctx.fillStyle = cycle < 0.5 ? '#FF9E5E' : '#1E293B';
     ctx.beginPath();
-    ctx.arc(scaleX(mx + 45), my, scaleX(22), Math.PI, 0);
+    ctx.arc(scaleX(mx + 40), my + scaleY(36), scaleX(18), Math.PI, 0);
+    ctx.rect(scaleX(mx + 22), my + scaleY(36), scaleX(36), scaleY(39));
     ctx.fill();
+    // Amar Jawan Jyoti Flame Flicker
+    const flameH = scaleY(8 + Math.sin(elapsed*18 + i)*3);
+    ctx.fillStyle = '#FFA500';
+    ctx.beginPath();
+    ctx.ellipse(scaleX(mx + 40), my + scaleY(68), scaleX(4), flameH, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#FFFF00';
+    ctx.beginPath();
+    ctx.ellipse(scaleX(mx + 40), my + scaleY(70), scaleX(2), flameH*0.6, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // Clouds & Kites
+  clouds.forEach(c => drawCloud(scaleX(c.x), scaleY(c.y), c.s));
+  kites.forEach(k => drawKite(scaleX(k.x), scaleY(k.y + Math.sin((elapsed+k.hue)*1.5)*12), k.s, k.hue));
+
+  // Kartavya Path Lush Lawns
+  const groundH = scaleY(60);
+  const gg = ctx.createLinearGradient(0, H-groundH, 0, H);
+  gg.addColorStop(0, '#1E4620'); gg.addColorStop(1, '#0F2913');
+  ctx.fillStyle = gg; ctx.fillRect(0, H-groundH, W, groundH);
+  ctx.fillStyle = '#3BA55C'; ctx.fillRect(0, H-groundH, W, scaleY(5));
+}
+
+function drawSansadTheme(dt){
+  // Parliament Dusk Sky
+  const g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0, '#0F172A'); g.addColorStop(0.5, '#D97706'); g.addColorStop(1, '#B45309');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  // Ashoka Capital / Sunset Aura
+  const aura = ctx.createRadialGradient(scaleX(200), scaleY(90), 10, scaleX(200), scaleY(90), scaleX(180));
+  aura.addColorStop(0, 'rgba(254,240,138,0.5)'); aura.addColorStop(1, 'rgba(254,240,138,0)');
+  ctx.fillStyle = aura; ctx.fillRect(0,0,W,H);
+
+  // Parallax Samvidhan Sadan (Old Parliament) Colonnade + New Parliament House
+  ctx.fillStyle = 'rgba(69,26,3,0.55)';
+  for(let i=0; i<3; i++){
+    const mx = ((i * 190 + bgOffset1) % (BASE_W + 190)) - 80;
+    const my = H - scaleY(140);
+    // Circular Parliament Dome & Colonnade
+    ctx.fillRect(scaleX(mx), my + scaleY(20), scaleX(110), scaleY(60));
+    ctx.beginPath();
+    ctx.arc(scaleX(mx + 55), my + scaleY(20), scaleX(32), Math.PI, 0);
+    ctx.fill();
+    // Classical Pillars
+    ctx.fillStyle = 'rgba(254,215,170,0.35)';
+    for(let p=0; p<7; p++){
+      ctx.fillRect(scaleX(mx + 8 + p*15), my + scaleY(30), scaleX(4), scaleY(50));
+    }
+    // National Flag Fluttering atop
+    const flagX = scaleX(mx + 55), flagY = my - scaleY(16);
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(flagX, flagY + scaleY(20)); ctx.lineTo(flagX, flagY); ctx.stroke();
+    const fWave = Math.sin(elapsed*8 + i)*3;
+    ctx.fillStyle = '#FF9933'; ctx.fillRect(flagX, flagY, scaleX(12), scaleY(4));
+    ctx.fillStyle = '#FFFFFF'; ctx.fillRect(flagX, flagY+scaleY(4), scaleX(12), scaleY(4));
+    ctx.fillStyle = '#138808'; ctx.fillRect(flagX, flagY+scaleY(8)+fWave*0.3, scaleX(12), scaleY(4));
+    ctx.fillStyle = 'rgba(69,26,3,0.55)';
   }
 
   // Clouds
-  clouds.forEach(c=>{
-    if(state === STATE.PLAYING) c.x -= c.sp*dt;
-    if(c.x < -60) c.x = BASE_W + 60;
-    drawCloud(scaleX(c.x), scaleY(c.y), c.s);
-  });
+  clouds.forEach(c => drawCloud(scaleX(c.x), scaleY(c.y), c.s));
 
-  // Kites
-  kites.forEach(k=>{
-    if(state === STATE.PLAYING) k.x -= k.sp*dt;
-    if(k.x < -40) k.x = BASE_W + 40;
-    drawKite(scaleX(k.x), scaleY(k.y + Math.sin((elapsed+k.hue)*1.5)*12), k.s, k.hue);
-  });
-
-  // Ground with Tricolor Bunting
+  // Paved Forecourt & Red Sandstone Borders
   const groundH = scaleY(60);
-  const gg = ctx.createLinearGradient(0, H-groundH, 0, H);
-  gg.addColorStop(0, '#1E4620');
-  gg.addColorStop(1, '#0F2913');
-  ctx.fillStyle = gg;
-  ctx.fillRect(0, H-groundH, W, groundH);
+  ctx.fillStyle = '#1E293B'; ctx.fillRect(0, H-groundH, W, groundH);
+  ctx.fillStyle = '#9A3412'; ctx.fillRect(0, H-groundH, W, scaleY(6));
+  // Street Lamps
+  for(let lx=15; lx<BASE_W; lx+=95){
+    const rx = scaleX((lx + bgOffset1*0.8) % BASE_W);
+    ctx.fillStyle = '#F59E0B'; ctx.beginPath(); ctx.arc(rx, H-groundH-scaleY(14), scaleX(3), 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#64748B'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(rx, H-groundH); ctx.lineTo(rx, H-groundH-scaleY(14)); ctx.stroke();
+  }
+}
 
-  ctx.fillStyle = '#3BA55C';
-  ctx.fillRect(0, H-groundH, W, scaleY(6));
+function drawRashtrapatiTheme(dt){
+  // Royal Twilight Magenta-Indigo Sky
+  const g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0, '#1E1B4B'); g.addColorStop(0.5, '#581C87'); g.addColorStop(1, '#831843');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  // Majestic Copper Dome (Rashtrapati Bhavan) in Parallax
+  ctx.fillStyle = 'rgba(76,29,149,0.5)';
+  for(let i=0; i<2; i++){
+    const mx = ((i * 240 + bgOffset1) % (BASE_W + 240)) - 100;
+    const my = H - scaleY(155);
+    // Grand Palace Wings
+    ctx.fillRect(scaleX(mx), my + scaleY(45), scaleX(160), scaleY(50));
+    // Stupa Copper Dome
+    ctx.beginPath();
+    ctx.arc(scaleX(mx + 80), my + scaleY(45), scaleX(42), Math.PI, 0);
+    ctx.fill();
+    // Finial atop
+    ctx.fillStyle = '#FBBF24';
+    ctx.fillRect(scaleX(mx + 78), my - scaleY(6), scaleX(4), scaleY(12));
+    ctx.beginPath(); ctx.arc(scaleX(mx + 80), my - scaleY(8), scaleX(4), 0, Math.PI*2); ctx.fill();
+    // Jaipur Column Silhouette
+    ctx.fillStyle = 'rgba(251,191,36,0.35)';
+    ctx.fillRect(scaleX(mx + 20), my + scaleY(15), scaleX(5), scaleY(80));
+    ctx.fillStyle = 'rgba(76,29,149,0.5)';
+  }
+
+  // Mughal Garden Water Fountains
+  for(let f=0; f<3; f++){
+    const fx = scaleX(((f * 135 + bgOffset1*0.7) % (BASE_W + 135)));
+    const fy = H - scaleY(70);
+    ctx.strokeStyle = 'rgba(147,197,253,0.7)'; ctx.lineWidth = 1.5;
+    for(let a = -1; a <= 1; a+=2){
+      ctx.beginPath();
+      ctx.moveTo(fx, fy);
+      const spray = Math.sin(elapsed*9 + f)*4;
+      ctx.quadraticCurveTo(fx + a*scaleX(12), fy - scaleY(22 + spray), fx + a*scaleX(20), fy + scaleY(4));
+      ctx.stroke();
+    }
+  }
+
+  // Terrace Ground & Flowerbed Trim
+  const groundH = scaleY(60);
+  ctx.fillStyle = '#3F1528'; ctx.fillRect(0, H-groundH, W, groundH);
+  ctx.fillStyle = '#BE185D'; ctx.fillRect(0, H-groundH, W, scaleY(5));
+}
+
+function drawRailwayTheme(dt){
+  // Midnight Railway Blue Sky
+  const g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0, '#030712'); g.addColorStop(0.5, '#0F172A'); g.addColorStop(1, '#1E293B');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  // Overhead High-Voltage 25kV Catenary Wires
+  ctx.strokeStyle = 'rgba(148,163,184,0.35)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, scaleY(75)); ctx.lineTo(W, scaleY(75)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, scaleY(95)); ctx.lineTo(W, scaleY(95)); ctx.stroke();
+
+  // Steel Truss Portal Gantries in Parallax
+  for(let i=0; i<3; i++){
+    const gx = scaleX(((i * 160 + bgOffset1) % (BASE_W + 160)) - 40);
+    ctx.strokeStyle = 'rgba(100,116,139,0.5)'; ctx.lineWidth = 2;
+    ctx.strokeRect(gx, scaleY(65), scaleX(10), scaleY(180));
+    ctx.strokeRect(gx + scaleX(70), scaleY(65), scaleX(10), scaleY(180));
+    ctx.strokeRect(gx, scaleY(65), scaleX(80), scaleY(12));
+  }
+
+  // Indian Railways Iconic Yellow Signboard ("नई दिल्ली / NEW DELHI")
+  for(let i=0; i<2; i++){
+    const sx = scaleX(((i * 220 + bgOffset1*1.1) % (BASE_W + 220)) - 60);
+    const sy = H - scaleY(135);
+    // Board Poles
+    ctx.fillStyle = '#475569';
+    ctx.fillRect(sx + scaleX(12), sy + scaleY(22), scaleX(3), scaleY(55));
+    ctx.fillRect(sx + scaleX(65), sy + scaleY(22), scaleX(3), scaleY(55));
+    // Yellow Board
+    ctx.fillStyle = '#FACC15'; ctx.fillRect(sx, sy, scaleX(80), scaleY(24));
+    ctx.strokeStyle = '#000000'; ctx.lineWidth = 1.5; ctx.strokeRect(sx, sy, scaleX(80), scaleY(24));
+    ctx.fillStyle = '#000000'; ctx.font = 'bold 8px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('नई दिल्ली · NEW DELHI', sx + scaleX(40), sy + scaleY(15));
+  }
+
+  // Passing Vande Bharat Express Train in Lower Parallax
+  const trainX = ((bgOffset2*1.8) % (BASE_W + 400)) - 100;
+  const trainY = H - scaleY(95);
+  ctx.fillStyle = '#F8FAFC'; // Aerodynamic White Body
+  ctx.fillRect(scaleX(trainX), trainY, scaleX(260), scaleY(32));
+  ctx.fillStyle = '#1D4ED8'; // Vande Bharat Navy Stripe
+  ctx.fillRect(scaleX(trainX), trainY + scaleY(10), scaleX(260), scaleY(8));
+  // Windows with Warm Light
+  ctx.fillStyle = '#FEF08A';
+  for(let w=0; w<9; w++){
+    ctx.fillRect(scaleX(trainX + 18 + w*26), trainY + scaleY(12), scaleX(16), scaleY(9));
+  }
+
+  // Railway Tracks & Ballast
+  const groundH = scaleY(60);
+  ctx.fillStyle = '#1C1917'; ctx.fillRect(0, H-groundH, W, groundH);
+  // Sleepers (Cross ties)
+  for(let t=0; t<BASE_W; t+=14){
+    const tx = scaleX((t + bgOffset2*0.6) % BASE_W);
+    ctx.fillStyle = '#78716C'; ctx.fillRect(tx, H-groundH+scaleY(14), scaleX(6), scaleY(28));
+  }
+  // Steel Rails
+  ctx.fillStyle = '#94A3B8';
+  ctx.fillRect(0, H-groundH+scaleY(18), W, scaleY(3));
+  ctx.fillRect(0, H-groundH+scaleY(34), W, scaleY(3));
+}
+
+function drawRajyaSabhaTheme(dt){
+  // Royal Red Chamber Interior
+  const g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0, '#260408'); g.addColorStop(0.5, '#580A16'); g.addColorStop(1, '#780C22');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  // Classical Teakwood Pillars & Golden Wall Mouldings
+  for(let i=0; i<4; i++){
+    const px = scaleX(((i * 120 + bgOffset1*0.5) % (BASE_W + 120)) - 30);
+    ctx.fillStyle = '#450A0A';
+    ctx.fillRect(px, scaleY(40), scaleX(14), scaleY(200));
+    ctx.fillStyle = '#F59E0B'; // Gold trim
+    ctx.fillRect(px, scaleY(40), scaleX(14), scaleY(4));
+    ctx.fillRect(px, scaleY(236), scaleX(14), scaleY(4));
+  }
+
+  // Hanging Crystal Chandeliers overhead
+  for(let c=0; c<3; c++){
+    const cx = scaleX(((c * 140 + bgOffset1*0.4) % (BASE_W + 140)) - 20);
+    const cy = scaleY(50);
+    ctx.strokeStyle = '#F59E0B'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, cy); ctx.stroke();
+    // Chandelier tiers
+    ctx.fillStyle = '#FDE68A';
+    ctx.beginPath(); ctx.ellipse(cx, cy, scaleX(14), scaleY(6), 0, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx, cy + scaleY(8), scaleX(8), scaleY(4), 0, 0, Math.PI*2); ctx.fill();
+    // Warm light sparkle
+    const cGlow = ctx.createRadialGradient(cx, cy+scaleY(5), 1, cx, cy+scaleY(5), scaleX(32));
+    cGlow.addColorStop(0, 'rgba(253,230,138,0.4)'); cGlow.addColorStop(1, 'rgba(253,230,138,0)');
+    ctx.fillStyle = cGlow; ctx.fillRect(cx - scaleX(32), cy - scaleY(20), scaleX(64), scaleY(60));
+  }
+
+  // Tiered Horseshoe Semicircular Seating Gallery
+  ctx.fillStyle = '#991B1B';
+  for(let s=0; s<3; s++){
+    const sx = scaleX(((s * 150 + bgOffset1*0.8) % (BASE_W + 150)) - 40);
+    const sy = H - scaleY(130);
+    ctx.fillRect(sx, sy, scaleX(90), scaleY(36));
+    ctx.fillStyle = '#7F1D1D';
+    ctx.fillRect(sx + scaleX(6), sy - scaleY(8), scaleX(78), scaleY(10));
+    ctx.fillStyle = '#991B1B';
+  }
+
+  // Deep Crimson Ceremonial Carpet Ground
+  const groundH = scaleY(60);
+  ctx.fillStyle = '#5B0915'; ctx.fillRect(0, H-groundH, W, groundH);
+  ctx.fillStyle = '#F59E0B'; ctx.fillRect(0, H-groundH, W, scaleY(5)); // Golden woven border
+}
+
+function drawBackground(dt){
+  if(state === STATE.PLAYING){
+    bgOffset1 -= dt*16;
+    bgOffset2 -= dt*36;
+    clouds.forEach(c => {
+      c.x -= c.sp*dt;
+      if(c.x < -60) c.x = BASE_W + 60;
+    });
+    kites.forEach(k => {
+      k.x -= k.sp*dt;
+      if(k.x < -40) k.x = BASE_W + 40;
+    });
+  }
+
+  if(currentTheme === 'sansad'){
+    drawSansadTheme(dt);
+  } else if(currentTheme === 'rashtrapati'){
+    drawRashtrapatiTheme(dt);
+  } else if(currentTheme === 'railway'){
+    drawRailwayTheme(dt);
+  } else if(currentTheme === 'rajya_sabha'){
+    drawRajyaSabhaTheme(dt);
+  } else {
+    drawIndiaGateTheme(dt);
+  }
 }
 
 function drawCloud(x,y,s){
@@ -1528,6 +1957,108 @@ function drawPlayer(){
       ctx.beginPath(); ctx.arc(0,-16,16,0,Math.PI*2); ctx.fill();
       ctx.fillStyle = '#16A34A';
       ctx.beginPath(); ctx.ellipse(0,-26,15,8,0,Math.PI,0,true); ctx.fill();
+    }
+
+  } else if(chosenCharacter === 'kejriwal'){
+    // --- ARVIND KEJRIWAL (MUFFLER MAN) MASCOT ---
+    // Fluttering Woolen Muffler Tails
+    ctx.fillStyle = '#991B1B'; // Maroon/red muffler tail
+    ctx.beginPath();
+    ctx.ellipse(-20, 6, 14+wingFlap*7, 5.5, 0.35, 0, Math.PI*2);
+    ctx.fill();
+
+    // Wings
+    ctx.fillStyle = '#60A5FA';
+    ctx.save();
+    ctx.rotate(-0.5 - wingFlap*0.6);
+    ctx.beginPath(); ctx.ellipse(-8,-4, 20, 9, 0, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+    ctx.save();
+    ctx.rotate(0.5 + wingFlap*0.6);
+    ctx.beginPath(); ctx.ellipse(8,-4, 20, 9, 0, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+
+    // Blue Woolen Sweater / Vest + Shirt
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath(); ctx.ellipse(0,6,22,18,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#1E3A8A'; // Dark Blue Woolen Sweater
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(-14, -2, 28, 24, 6) : ctx.rect(-14, -2, 28, 24);
+    ctx.fill();
+
+    // Muffler wrapped around neck
+    ctx.fillStyle = '#B91C1C';
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(-16, -10, 32, 11, 5) : ctx.rect(-16, -10, 32, 11);
+    ctx.fill();
+
+    // Real Face Cutout
+    if(imgKejriwal.complete && imgKejriwal.naturalWidth > 0){
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(0, -15, 18, 0, Math.PI*2);
+      ctx.clip();
+      ctx.drawImage(imgKejriwal, -18, -33, 36, 36);
+      ctx.restore();
+
+      ctx.strokeStyle = '#0EA5E9';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(0, -15, 18, 0, Math.PI*2);
+      ctx.stroke();
+    } else {
+      ctx.fillStyle = '#FED7AA';
+      ctx.beginPath(); ctx.arc(0,-16,16,0,Math.PI*2); ctx.fill();
+    }
+
+    // Waving Hand
+    ctx.fillStyle = '#FED7AA';
+    ctx.beginPath(); ctx.arc(18, 4, 5.5, 0, Math.PI*2); ctx.fill();
+
+  } else if(chosenCharacter === 'yogi'){
+    // --- YOGI ADITYANATH (BULLDOZER BABA) MASCOT ---
+    // Saffron Monk Robe Cape
+    ctx.fillStyle = '#C2410C';
+    ctx.beginPath();
+    ctx.ellipse(-18, 6, 12+wingFlap*6, 6, 0.4, 0, Math.PI*2);
+    ctx.fill();
+
+    // Saffron/Golden Wings
+    ctx.fillStyle = '#F59E0B';
+    ctx.save();
+    ctx.rotate(-0.5 - wingFlap*0.6);
+    ctx.beginPath(); ctx.ellipse(-8,-4, 20, 9, 0, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+    ctx.save();
+    ctx.rotate(0.5 + wingFlap*0.6);
+    ctx.beginPath(); ctx.ellipse(8,-4, 20, 9, 0, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+
+    // Saffron Kurta / Robe
+    ctx.fillStyle = '#F97316';
+    ctx.beginPath(); ctx.ellipse(0,6,22,18,0,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#EA580C';
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(-14, -2, 28, 24, 6) : ctx.rect(-14, -2, 28, 24);
+    ctx.fill();
+
+    // Real Face Cutout
+    if(imgYogi.complete && imgYogi.naturalWidth > 0){
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(0, -15, 18, 0, Math.PI*2);
+      ctx.clip();
+      ctx.drawImage(imgYogi, -18, -33, 36, 36);
+      ctx.restore();
+
+      ctx.strokeStyle = '#F59E0B';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(0, -15, 18, 0, Math.PI*2);
+      ctx.stroke();
+    } else {
+      ctx.fillStyle = '#FED7AA';
+      ctx.beginPath(); ctx.arc(0,-16,16,0,Math.PI*2); ctx.fill();
     }
 
     // Waving Hand
@@ -1782,6 +2313,10 @@ function update(dt){
             msgs = ['HUMBA HUMBA!', 'खेला होबे!', 'MAMATA DIDI POWER!', 'JAI BANGLA!'];
           } else if(chosenCharacter === 'rahul'){
             msgs = ['मज़ा आया!', 'KHATAKHAT FLIGHT!', 'ALOO FACTORY ON!', 'MOHABBAT KI DUKAAN!'];
+          } else if(chosenCharacter === 'kejriwal'){
+            msgs = ['FREE BIJLI-PAANI!', 'SWARAJYA UDAAN!', 'AAM AADMI POWER!', 'TOH KAR NA!'];
+          } else if(chosenCharacter === 'yogi'){
+            msgs = ['BULLDOZER ACTION!', 'RAM RAJYA UDAAN!', 'SUPER EXPRESSWAY!', 'YOGI JI POWER!'];
           }
           const msg = msgs[(score/10 - 1) % msgs.length];
           showMilestone(`${score} — ${msg}`);
@@ -1789,6 +2324,10 @@ function update(dt){
             Audio_.playClip('wahModiJi', msg);
           } else if(chosenCharacter === 'mamata'){
             Audio_.playClip('mamataVoice', msg);
+          } else if(chosenCharacter === 'kejriwal'){
+            Audio_.playClip('kejriwalVoice', msg);
+          } else if(chosenCharacter === 'yogi'){
+            Audio_.playClip('yogiVoice', msg);
           } else {
             Audio_.playClip('mazaAaya', msg);
           }
