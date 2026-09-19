@@ -299,7 +299,6 @@
       </div>
       <div class="hud-controls">
         <div class="icon-btn" id="themeBtn" title="Change Background Theme" onclick="nextTheme()">🌆</div>
-        <div class="icon-btn" id="musicBtn" title="Change Meme BGM">🎵</div>
         <div class="icon-btn" id="soundBtn" title="Toggle Sound">🔊</div>
         <div class="icon-btn" id="pauseBtn" title="Pause Game">⏸</div>
       </div>
@@ -343,12 +342,9 @@
         </div>
       </div>
 
-      <!-- Theme selector & Music selector -->
+      <!-- Theme selector -->
       <div class="music-pill" id="startThemePill" onclick="nextTheme()">
         🌆 THEME: <b id="currentThemeName">🇮🇳 INDIA GATE</b>
-      </div>
-      <div class="music-pill" id="startMusicPill">
-        🎵 BGM: <b id="currentBgmName">🚀 UDTA HI PHIRU (MODI JI)</b>
       </div>
 
       <div class="best-pill" onclick="openLeaderboard()">🏆 HIGH SCORES &nbsp;<b id="startBest">0</b></div>
@@ -995,6 +991,17 @@ window.shareOnWhatsApp = function(){
   window.open(url, '_blank');
 };
 
+const CHAR_SONGS = {
+  modi: 'modi_song',
+  rahul: 'real_sigma',
+  mamata: 'mamata_song',
+  kejriwal: 'kejriwal_song',
+  yogi: 'yogi_song'
+};
+function getCharSong(charType){
+  return CHAR_SONGS[charType] || 'modi_song';
+}
+
 window.selectChar = function(charType){
   chosenCharacter = charType;
   const cards = ['charModi', 'charRahul', 'charMamata', 'charKejriwal', 'charYogi'];
@@ -1004,23 +1011,21 @@ window.selectChar = function(charType){
   });
   Audio_.click();
 
+  // Strictly lock and start this character's dedicated meme song
+  Audio_.setBgmMode(getCharSong(charType));
+
+  // Play character's signature dialogue immediately
   if(charType === 'modi'){
-    Audio_.setBgmMode('modi_song');
+    Audio_.playClip('mitron');
   } else if(charType === 'mamata'){
     Audio_.playClip('mamataVoice');
-    Audio_.setBgmMode('mamata_song');
   } else if(charType === 'kejriwal'){
     Audio_.playClip('kejriwalVoice');
-    Audio_.setBgmMode('kejriwal_song');
   } else if(charType === 'yogi'){
     Audio_.playClip('yogiVoice');
-    Audio_.setBgmMode('yogi_song');
   } else {
     Audio_.playClip('mazaAaya');
-    Audio_.setBgmMode('real_sigma');
   }
-  const bgmEl = document.getElementById('currentBgmName');
-  if(bgmEl) bgmEl.textContent = Audio_.getBgmName();
 };
 
 function resetGame(){
@@ -1176,8 +1181,6 @@ window.addEventListener('keydown', (e)=>{
   } else if(e.code === 'Escape' || e.code === 'KeyP'){
     if(state === STATE.PLAYING) pauseGame();
     else if(state === STATE.PAUSED) resumeGame();
-  } else if(e.code === 'KeyM'){
-    cycleMusic();
   }
 });
 
@@ -1197,8 +1200,6 @@ const el = {
   finalBest: document.getElementById('finalBest'),
   newBestTag: document.getElementById('newBestTag'),
   soundBtn: document.getElementById('soundBtn'),
-  musicBtn: document.getElementById('musicBtn'),
-  currentBgmName: document.getElementById('currentBgmName'),
   powerupHud: document.getElementById('powerupHud'),
   powerupName: document.getElementById('powerupName'),
   powerupFill: document.getElementById('powerupFill'),
@@ -1237,15 +1238,6 @@ function updatePowerupUI(){
   }
 }
 
-function cycleMusic(){
-  Audio_.nextBgm();
-  el.currentBgmName.textContent = Audio_.getBgmName();
-  Audio_.click();
-}
-
-el.musicBtn.addEventListener('click', (e)=>{ e.stopPropagation(); cycleMusic(); });
-document.getElementById('startMusicPill').addEventListener('click', (e)=>{ e.stopPropagation(); cycleMusic(); });
-
 el.soundBtn.addEventListener('click', (e)=>{
   e.stopPropagation();
   const on = Audio_.toggleSound();
@@ -1283,10 +1275,8 @@ function startGame(){
   state = STATE.PLAYING;
   showOverlay(null);
   el.hud.style.display = 'flex';
+  Audio_.setBgmMode(getCharSong(chosenCharacter));
   Audio_.startMusic();
-  if(chosenCharacter === 'rahul'){
-    scheduleVoice('mazaAaya', null, 250);
-  }
 }
 
 function restartGame(){
@@ -1297,10 +1287,8 @@ function restartGame(){
   state = STATE.PLAYING;
   showOverlay(null);
   el.hud.style.display = 'flex';
+  Audio_.setBgmMode(getCharSong(chosenCharacter));
   Audio_.startMusic();
-  if(chosenCharacter === 'rahul'){
-    scheduleVoice('mazaAaya', null, 250);
-  }
 }
 
 function goHome(){
@@ -1341,21 +1329,28 @@ function gameOver(){
   if(isNew){
     bestScore = score;
     saveBest(bestScore);
-    if(chosenCharacter === 'yogi'){
-      document.getElementById('gameOverMeme').textContent = `"बुलडोज़र रिकॉर्ड! गाड़ी नहीं पलटेगी!"`;
-      scheduleVoice('yogiVoice', null, 250);
-    } else if(chosenCharacter === 'kejriwal'){
-      document.getElementById('gameOverMeme').textContent = `"शानदार रिकॉर्ड! आम आदमी की जीत!"`;
-      scheduleVoice('kejriwalVoice', null, 250);
+    if(chosenCharacter === 'modi'){
+      document.getElementById('gameOverMeme').textContent = `"वाह मोदी जी वाह! नया रिकॉर्ड!"`;
+      scheduleVoice('wahModiJi', null, 250);
+    } else if(chosenCharacter === 'rahul'){
+      document.getElementById('gameOverMeme').textContent = `"मज़ा आया! नया रिकॉर्ड!"`;
+      scheduleVoice('mazaAaya', null, 250);
     } else if(chosenCharacter === 'mamata'){
       document.getElementById('gameOverMeme').textContent = `"खेला होबे! नया रिकॉर्ड!"`;
       scheduleVoice('mamataVoice', null, 250);
-    } else {
-      document.getElementById('gameOverMeme').textContent = `"वाह मोदी जी वाह! नया रिकॉर्ड!"`;
-      scheduleVoice('wahModiJi', null, 250);
+    } else if(chosenCharacter === 'kejriwal'){
+      document.getElementById('gameOverMeme').textContent = `"शानदार रिकॉर्ड! आम आदमी की जीत!"`;
+      scheduleVoice('kejriwalVoice', null, 250);
+    } else if(chosenCharacter === 'yogi'){
+      document.getElementById('gameOverMeme').textContent = `"बुलडोज़र रिकॉर्ड! गाड़ी नहीं पलटेगी!"`;
+      scheduleVoice('yogiVoice', null, 250);
     }
   } else {
-    if(chosenCharacter === 'rahul'){
+    if(chosenCharacter === 'modi'){
+      const isMoye = Math.random() < 0.65;
+      document.getElementById('gameOverMeme').textContent = isMoye ? `"मोये मोये! खत्म! टाटा! बाय बाय!"` : `"खत्म! टाटा! बाय बाय! गया!"`;
+      scheduleVoice(isMoye ? 'moyeMoye' : 'khatam', null, 250);
+    } else if(chosenCharacter === 'rahul'){
       document.getElementById('gameOverMeme').textContent = `"खत्म! टाटा! बाय बाय! गुडबाय!"`;
       scheduleVoice('khatam', null, 250);
     } else if(chosenCharacter === 'mamata'){
@@ -1367,15 +1362,6 @@ function gameOver(){
     } else if(chosenCharacter === 'yogi'){
       document.getElementById('gameOverMeme').textContent = `"गाड़ी कभी भी पलट सकती है!"`;
       scheduleVoice('yogiVoice', null, 250);
-    } else {
-      const isMoye = Math.random() < 0.65;
-      if(isMoye){
-        document.getElementById('gameOverMeme').textContent = `"मोये मोये! खत्म! टाटा! बाय बाय!"`;
-        scheduleVoice('moyeMoye', null, 250);
-      } else {
-        document.getElementById('gameOverMeme').textContent = `"खत्म! टाटा! बाय बाय! गया!"`;
-        scheduleVoice('khatam', null, 250);
-      }
     }
   }
 
@@ -1474,6 +1460,14 @@ function handleHit(collision){
   }
 
   Audio_.hit();
+  const hitPopups = {
+    modi: "💥 अरे भाई भाई!",
+    rahul: "💥 ओह नो!",
+    mamata: "💥 हम्बा!",
+    kejriwal: "💥 ये क्या हुआ?!",
+    yogi: "💥 सावधान!"
+  };
+  addPopup(hitPopups[chosenCharacter] || "💥 OUCH!", player.x, player.y, '#EF4444');
   player.invincible = INVINCIBLE_TIME;
   player.vy = FLAP_VELOCITY * 0.8;
   const groundY = BASE_H - 60;
